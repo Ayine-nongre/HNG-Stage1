@@ -1,5 +1,4 @@
 import express from 'express'
-import ip from 'ip'
 import dotenv from 'dotenv'
 
 const app = express()
@@ -7,6 +6,8 @@ dotenv.config()
 
 app.get('/api/hello', async (req, res) => {
     const ipAdd = req.headers["cf-connecting-ip"] || req.headers['x-forwarded-for'] || req.connection.remoteAddress || req.headers['x-real-ip'] || req.socket.remoteAddress
+
+    if (!req.query.visitor_name) return res.status(404).json({ "message": "Visitor name is required"})
 
     const url = `https://weatherapi-com.p.rapidapi.com/current.json?q=${ipAdd}`;
     const options = {
@@ -27,7 +28,7 @@ app.get('/api/hello', async (req, res) => {
         })
     } catch (error) {
         res.status(500).json({
-            'message': 'Internal server error'
+            'message': 'Failed to get weather details'
         })
     }
 })
