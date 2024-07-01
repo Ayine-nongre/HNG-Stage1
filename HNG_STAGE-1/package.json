@@ -1,0 +1,25 @@
+{
+  "name": "hng-stage1",
+  "version": "1.0.0",
+  "description": "HNG stage 1 task",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ayine-nongre/HNG-Stage1.git"
+  },
+  "author": "ayine-nongre",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ayine-nongre/HNG-Stage1/issues"
+  },
+  "homepage": "https://github.com/Ayine-nongre/HNG-Stage1#readme",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "ip": "^2.0.1"
+  }
+}
