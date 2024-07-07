@@ -4,7 +4,7 @@ import { Sequelize } from 'sequelize'
 dotenv.config()
 
 export const db = new Sequelize(
-    'defaultdb',
+    'hngdb_m9nd',
     process.env.DB_USER,
     process.env.DB_PASSWD,
     {
