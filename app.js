@@ -1,38 +1,25 @@
 import express from 'express'
 import dotenv from 'dotenv'
+import { db } from './config/database.js'
+import { authRouter } from './routes/authRoutes.js'
+import { userRouter } from './routes/userRoutes.js'
+import { Sequelize } from 'sequelize'
 
-const app = express()
+export const app = express()
 dotenv.config()
 
-app.get('/api/hello', async (req, res) => {
-    const ipAdd = req.headers["cf-connecting-ip"] || req.headers['x-forwarded-for'] || req.connection.remoteAddress || req.headers['x-real-ip'] || req.socket.remoteAddress
+const port = process.env.PORT || 3000
 
-    if (!req.query.visitor_name) return res.status(404).json({ "message": "Visitor name is required"})
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
-    const url = `https://weatherapi-com.p.rapidapi.com/current.json?q=${ipAdd}`;
-    const options = {
-        method: 'GET',
-        headers: {
-            'x-rapidapi-key': process.env.KEY,
-            'x-rapidapi-host': process.env.HOST
-        }
-    };
+db.authenticate()
+.then(() => console.log("Database connected successfully"))
+.catch((err) => console.log("Unable to connect to database", err))
 
-    try {
-        const response = await fetch(url, options);
-        const result = await response.json();
-        res.status(200).json({
-            "client_ip": ipAdd,
-            "location": result.location.name,
-            "greeting": `Hello ${req.query.visitor_name}!, the temperature is ${result.current.temp_c} degrees Celcius in ${result.location.name}`
-        })
-    } catch (error) {
-        res.status(500).json({
-            'message': 'Failed to get weather details'
-        })
-    }
-})
+app.use('/auth', authRouter)
+app.use('/api', userRouter)
 
-app.listen(3000, () => {
-    console.log("Server is running...")
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}...`)
 })
