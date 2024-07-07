@@ -8,7 +8,7 @@ import { Sequelize } from 'sequelize'
 export const app = express()
 dotenv.config()
 
-const port = process.env.PORT || 3000
+const port = 3000
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
