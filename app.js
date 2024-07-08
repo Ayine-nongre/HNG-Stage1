@@ -17,6 +17,10 @@ db.authenticate()
 .then(() => console.log("Database connected successfully"))
 .catch((err) => console.log("Unable to connect to database", err))
 
+app.get('/', (req, res) => {
+    res.send("This is my user organisation API")
+})
+
 app.use('/auth', authRouter)
 app.use('/api', userRouter)
 
