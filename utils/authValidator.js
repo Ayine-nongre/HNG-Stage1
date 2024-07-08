@@ -22,15 +22,15 @@ export const signupValidator = [
     .withMessage("Password cannot be empty")
     .isLength({ min: 5 })
     .withMessage("Length of password should be 5 or more"),
-    body('confirmPassword')
-    .notEmpty()
-    .withMessage("Password cannot be empty")
-    .custom((value, { req }) => {
-        if (value !== req.body.password) {
-            throw new Error("Passwords do not match")
-        }
-        return value;
-    }),
+    // body('confirmPassword')
+    // .notEmpty()
+    // .withMessage("Password cannot be empty")
+    // .custom((value, { req }) => {
+    //     if (value !== req.body.password) {
+    //         throw new Error("Passwords do not match")
+    //     }
+    //     return value;
+    // }),
     validatorResult
 ]
 
